@@ -1,0 +1,943 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keysha Aulia Top Up</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #11152e, #29205a, #151b3d);
+  color: white;
+  padding: 20px 14px;
+}
+
+.container {
+  max-width: 650px;
+  margin: auto;
+}
+
+.header {
+  text-align: center;
+  margin: 15px 0 25px;
+}
+
+.logo {
+  width: 65px;
+  height: 65px;
+  margin: auto auto 12px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  font-size: 30px;
+  background: linear-gradient(135deg, #8065ff, #bd65ff);
+  box-shadow: 0 8px 25px #8065ff55;
+}
+
+.header h1 {
+  font-size: 28px;
+  letter-spacing: -1px;
+}
+
+.header p {
+  color: #b9b8d7;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.card {
+  width: 100%;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 22px;
+  padding: 20px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 15px 40px #0003;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.step {
+  color: #b9aaff;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 21px;
+  margin-bottom: 7px;
+}
+
+.desc {
+  color: #b9b8d7;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.game {
+  border: 1px solid #ffffff20;
+  background: #ffffff0b;
+  color: white;
+  border-radius: 15px;
+  padding: 16px 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: .2s;
+}
+
+.game:hover {
+  background: #8065ff30;
+  border-color: #a58cff;
+  transform: translateY(-2px);
+}
+
+.game:active {
+  transform: scale(.97);
+}
+
+.game-icon {
+  font-size: 30px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.game-name {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.game small {
+  display: block;
+  color: #b9b8d7;
+  margin-top: 4px;
+  font-size: 10px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  margin: 16px 0 8px;
+  color: #dedaff;
+}
+
+input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ffffff25;
+  border-radius: 12px;
+  outline: none;
+  color: white;
+  background: #171833;
+  font-size: 14px;
+}
+
+input:focus {
+  border-color: #a58cff;
+}
+
+input.invalid {
+  border: 1px solid #ff6262;
+}
+
+input.valid {
+  border: 1px solid #64e9a6;
+}
+
+.error-message {
+  display: none;
+  color: #ff7777;
+  font-size: 12px;
+  margin-top: 7px;
+  line-height: 1.5;
+}
+
+.error-message.show {
+  display: block;
+}
+
+.valid-message {
+  display: none;
+  color: #85ffc0;
+  font-size: 12px;
+  margin-top: 7px;
+}
+
+.valid-message.show {
+  display: block;
+}
+
+.packages {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.package {
+  border: 1px solid #ffffff20;
+  background: #ffffff0b;
+  color: white;
+  border-radius: 13px;
+  padding: 13px 8px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.package.selected {
+  border: 2px solid #a58cff;
+  background: #8065ff35;
+}
+
+.package strong {
+  display: block;
+  font-size: 14px;
+}
+
+.package small {
+  display: block;
+  color: #b9b8d7;
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+.price {
+  color: #85ffc0 !important;
+  font-weight: bold;
+}
+
+.info {
+  background: #ffffff0b;
+  border: 1px solid #ffffff15;
+  border-radius: 13px;
+  padding: 14px;
+  margin-top: 17px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 8px 0;
+  font-size: 13px;
+}
+
+.info-row span:first-child {
+  color: #b9b8d7;
+}
+
+.info-row strong {
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.total {
+  border-top: 1px solid #ffffff20;
+  padding-top: 12px;
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+.total strong {
+  color: #85ffc0;
+}
+
+.btn {
+  width: 100%;
+  border: none;
+  border-radius: 13px;
+  padding: 14px;
+  margin-top: 15px;
+  color: white;
+  background: linear-gradient(135deg, #7964ff, #b15eff);
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: .9;
+}
+
+.btn-secondary {
+  background: #ffffff15;
+  border: 1px solid #ffffff20;
+}
+
+.success {
+  text-align: center;
+  padding: 12px 0;
+}
+
+.success-icon {
+  width: 75px;
+  height: 75px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #1b9e6840;
+  border: 2px solid #64e9a6;
+  color: #64e9a6;
+  font-size: 38px;
+}
+
+.success h2 {
+  color: #85ffc0;
+  font-size: 24px;
+}
+
+.success p {
+  color: #c5c4df;
+  font-size: 13px;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+.receipt {
+  text-align: left;
+  margin-top: 22px;
+}
+
+.thanks {
+  color: #c8c5e5;
+  font-size: 13px;
+  line-height: 1.8;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.footer {
+  text-align: center;
+  color: #8888ad;
+  font-size: 11px;
+  margin: 22px 0 10px;
+}
+
+/* LOADING JARINGAN */
+.network-loader {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: linear-gradient(135deg, #11152e, #29205a, #151b3d);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 25px;
+}
+
+.network-loader.active {
+  display: flex;
+}
+
+.loader-content {
+  width: 100%;
+  max-width: 280px;
+}
+
+.loader-logo {
+  font-size: 45px;
+  margin-bottom: 18px;
+  animation: floatLogo 1.2s ease-in-out infinite alternate;
+}
+
+.loader-content h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.loader-content p {
+  color: #b9b8d7;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.loader-track {
+  height: 7px;
+  width: 100%;
+  background: #ffffff20;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.loader-bar {
+  height: 100%;
+  width: 35%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #8065ff, #bd65ff);
+  animation: loadingMove 1s ease-in-out infinite;
+}
+
+.loader-status {
+  display: block;
+  color: #b9aaff;
+  font-size: 11px;
+  margin-top: 12px;
+}
+
+@keyframes floatLogo {
+  from { transform: translateY(0); }
+  to { transform: translateY(-9px); }
+}
+
+@keyframes loadingMove {
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(310%); }
+}
+
+@media(max-width:350px) {
+  .game-grid, .packages {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADING -->
+<div class="network-loader" id="networkLoader">
+  <div class="loader-content">
+    <div class="loader-logo">💎</div>
+    <h2>Keysha Aulia Top Up</h2>
+    <p id="loaderText">Memeriksa koneksi internet...</p>
+    <div class="loader-track">
+      <div class="loader-bar"></div>
+    </div>
+    <span class="loader-status" id="loaderStatus">
+      Menghubungkan...
+    </span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="header">
+    <div class="logo">💎</div>
+    <h1>Keysha Aulia Top Up</h1>
+    <p>Top Up Game Favoritmu dengan Mudah</p>
+  </div>
+
+  <div class="card">
+
+    <!-- HALAMAN 1 -->
+    <section class="page active" id="page1">
+      <div class="step">HALAMAN 1 / 3</div>
+      <h2>Pilih Game Favoritmu</h2>
+      <p class="desc">
+        Selamat datang di Keysha Aulia Top Up!
+        Silakan pilih game yang ingin kamu top up.
+      </p>
+      <div class="game-grid" id="gameList"></div>
+    </section>
+
+    <!-- HALAMAN 2 -->
+    <section class="page" id="page2">
+      <div class="step">HALAMAN 2 / 3</div>
+      <h2>Lengkapi Detail Top Up</h2>
+      <p class="desc" id="selectedGameName"></p>
+
+      <label for="playerId">ID Game</label>
+      <input type="text" id="playerId"
+        placeholder="Masukkan ID akun game"
+        autocomplete="off">
+
+      <div class="error-message" id="idError">
+        ✖ ID tidak valid. Masukkan ID game, bukan nama atau teks sembarang.
+      </div>
+
+      <div class="valid-message" id="idValid">
+        ✓ Format ID diterima.
+      </div>
+
+      <label>Pilih Nominal Top Up</label>
+      <p class="desc">
+        Tentukan jumlah diamond atau mata uang game
+        sesuai pilihan yang tersedia.
+      </p>
+
+      <div class="packages" id="packageList"></div>
+
+      <div class="info">
+        <div class="info-row">
+          <span>Game</span>
+          <strong id="summaryGame">-</strong>
+        </div>
+        <div class="info-row">
+          <span>ID Game</span>
+          <strong id="summaryId">-</strong>
+        </div>
+        <div class="info-row">
+          <span>Nominal</span>
+          <strong id="summaryPackage">-</strong>
+        </div>
+        <div class="info-row total">
+          <span>Total Harga</span>
+          <strong>Rp0</strong>
+        </div>
+      </div>
+
+      <button class="btn" onclick="buyNow()">
+        Beli Sekarang — Rp0
+      </button>
+
+      <button class="btn btn-secondary" onclick="showPage(1)">
+        ← Kembali Pilih Game
+      </button>
+    </section>
+
+    <!-- HALAMAN 3 -->
+    <section class="page" id="page3">
+      <div class="success">
+        <div class="success-icon">✓</div>
+        <h2>Transaksi Berhasil!</h2>
+        <p>
+          Yeay! Transaksimu berhasil dibuat.
+          Terima kasih sudah menggunakan Keysha Aulia Top Up.
+        </p>
+      </div>
+
+      <div class="info receipt">
+        <div class="info-row">
+          <span>Status</span>
+          <strong style="color:#85ffc0">Berhasil</strong>
+        </div>
+        <div class="info-row">
+          <span>Game</span>
+          <strong id="receiptGame">-</strong>
+        </div>
+        <div class="info-row">
+          <span>ID Game</span>
+          <strong id="receiptId">-</strong>
+        </div>
+        <div class="info-row">
+          <span>Nominal</span>
+          <strong id="receiptPackage">-</strong>
+        </div>
+        <div class="info-row">
+          <span>Tanggal</span>
+          <strong id="receiptDate">-</strong>
+        </div>
+        <div class="info-row total">
+          <span>Total Pembayaran</span>
+          <strong>Rp0</strong>
+        </div>
+      </div>
+
+      <p class="thanks">
+        Terima kasih sudah berkunjung ke Keysha Aulia Top Up.
+        Jangan lupa ikuti TikTok Keysha Aulia Ramadhani, ya!
+      </p>
+
+      <button class="btn" onclick="goHome()">
+        ← Kembali ke Beranda
+      </button>
+    </section>
+
+  </div>
+
+  <div class="footer">
+    © 2026 Keysha Aulia Top Up
+  </div>
+
+</div>
+
+<script>
+const games = [
+  {
+    name: "Free Fire",
+    icon: "🔥",
+    currency: "Diamond",
+    packages: ["5 Diamond", "12 Diamond", "50 Diamond",
+      "70 Diamond", "100 Diamond", "140 Diamond",
+      "210 Diamond", "355 Diamond", "720 Diamond"]
+  },
+  {
+    name: "Mobile Legends",
+    icon: "⚔️",
+    currency: "Diamond",
+    packages: ["5 Diamond", "11 Diamond", "19 Diamond",
+      "28 Diamond", "36 Diamond", "56 Diamond",
+      "86 Diamond", "172 Diamond", "257 Diamond",
+      "344 Diamond"]
+  },
+  {
+    name: "PUBG Mobile",
+    icon: "🎯",
+    currency: "UC",
+    packages: ["60 UC", "120 UC", "180 UC",
+      "325 UC", "385 UC", "660 UC",
+      "720 UC", "1800 UC", "3850 UC"]
+  },
+  {
+    name: "Call of Duty Mobile",
+    icon: "🎮",
+    currency: "CP",
+    packages: ["30 CP", "80 CP", "160 CP",
+      "320 CP", "420 CP", "880 CP",
+      "1760 CP", "2400 CP"]
+  },
+  {
+    name: "Genshin Impact",
+    icon: "🌟",
+    currency: "Genesis Crystal",
+    packages: ["60 Crystal", "300 Crystal",
+      "980 Crystal", "1980 Crystal",
+      "3280 Crystal", "6480 Crystal"]
+  },
+  {
+    name: "Roblox",
+    icon: "🧱",
+    currency: "Robux",
+    packages: ["40 Robux", "80 Robux",
+      "160 Robux", "400 Robux",
+      "800 Robux", "1700 Robux"]
+  },
+  {
+    name: "Honor of Kings",
+    icon: "👑",
+    currency: "Token",
+    packages: ["8 Token", "16 Token", "23 Token",
+      "80 Token", "240 Token", "400 Token"]
+  },
+  {
+    name: "Valorant",
+    icon: "💥",
+    currency: "VP",
+    packages: ["125 VP", "420 VP", "700 VP",
+      "1375 VP", "2400 VP", "4000 VP"]
+  }
+];
+
+let selectedGame = null;
+let selectedPackage = null;
+let loadingRequest = null;
+
+const gameList = document.getElementById("gameList");
+const packageList = document.getElementById("packageList");
+const playerInput = document.getElementById("playerId");
+
+games.forEach((game, index) => {
+  const button = document.createElement("button");
+  button.className = "game";
+  button.type = "button";
+
+  const icon = document.createElement("span");
+  icon.className = "game-icon";
+  icon.textContent = game.icon;
+
+  const name = document.createElement("span");
+  name.className = "game-name";
+  name.textContent = game.name;
+
+  const currency = document.createElement("small");
+  currency.textContent = game.currency;
+
+  button.append(icon, name, currency);
+  button.onclick = () => selectGame(index);
+  gameList.appendChild(button);
+});
+
+/* PINDAH HALAMAN */
+function switchPage(number) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  document.getElementById("page" + number)
+    .classList.add("active");
+
+  window.scrollTo(0, 0);
+}
+
+/* LOADING BERDASARKAN RESPONS JARINGAN */
+function showPage(number) {
+  const loader = document.getElementById("networkLoader");
+  const loaderText = document.getElementById("loaderText");
+  const loaderStatus = document.getElementById("loaderStatus");
+
+  if (loadingRequest) {
+    loadingRequest.abort();
+    loadingRequest = null;
+  }
+
+  if (!navigator.onLine) {
+    loader.classList.remove("active");
+    switchPage(number);
+    return;
+  }
+
+  let xhr = null;
+  let finished = false;
+
+  function finishPage(showSuccess) {
+    if (finished) return;
+    finished = true;
+
+    if (loadingRequest === xhr) {
+      loadingRequest = null;
+    }
+
+    if (!showSuccess) {
+      loader.classList.remove("active");
+      switchPage(number);
+      return;
+    }
+
+    loaderStatus.textContent = "Koneksi terhubung";
+
+    switchPage(number);
+
+    setTimeout(() => {
+      loader.classList.remove("active");
+    }, 250);
+  }
+
+  xhr = new XMLHttpRequest();
+  loadingRequest = xhr;
+
+  loaderText.textContent = "Memeriksa koneksi internet...";
+  loaderStatus.textContent = "Menghubungkan...";
+  loader.classList.add("active");
+
+  xhr.open(
+    "GET",
+    window.location.pathname + "?network_check=" + Date.now(),
+    true
+  );
+
+  xhr.timeout = 5000;
+  xhr.setRequestHeader("Cache-Control", "no-cache");
+
+  xhr.onload = function() {
+    if (xhr.status >= 200 && xhr.status < 400) {
+      finishPage(true);
+    } else {
+      finishPage(false);
+    }
+  };
+
+  xhr.onerror = function() {
+    finishPage(false);
+  };
+
+  xhr.ontimeout = function() {
+    finishPage(false);
+  };
+
+  xhr.onabort = function() {
+    finished = true;
+  };
+
+  try {
+    xhr.send();
+  } catch (error) {
+    finishPage(false);
+  }
+}
+
+function selectGame(index) {
+  selectedGame = games[index];
+  selectedPackage = null;
+
+  document.getElementById("selectedGameName").textContent =
+    selectedGame.icon + " " + selectedGame.name;
+
+  playerInput.value = "";
+  resetIdMessage();
+
+  packageList.innerHTML = "";
+
+  selectedGame.packages.forEach(item => {
+    const button = document.createElement("button");
+    button.className = "package";
+    button.type = "button";
+
+    const name = document.createElement("strong");
+    name.textContent = item;
+
+    const price = document.createElement("small");
+    price.className = "price";
+    price.textContent = "Rp0";
+
+    button.append(name, price);
+
+    button.onclick = () => {
+      selectedPackage = item;
+
+      document.querySelectorAll(".package")
+        .forEach(p => p.classList.remove("selected"));
+
+      button.classList.add("selected");
+      updateSummary();
+    };
+
+    packageList.appendChild(button);
+  });
+
+  updateSummary();
+  showPage(2);
+}
+
+/* VALIDASI FORMAT ID */
+function validatePlayerId(value) {
+  const id = value.trim();
+
+  if (!selectedGame || !id) {
+    return false;
+  }
+
+  if (selectedGame.name === "Valorant") {
+    return /^[A-Za-z0-9 _.-]{3,16}#[A-Za-z0-9]{3,5}$/.test(id);
+  }
+
+  if (selectedGame.name === "Genshin Impact") {
+    return /^[0-9]{9}$/.test(id);
+  }
+
+  return /^[0-9]{5,20}$/.test(id);
+}
+
+function resetIdMessage() {
+  playerInput.classList.remove("invalid", "valid");
+
+  document.getElementById("idError")
+    .classList.remove("show");
+
+  document.getElementById("idValid")
+    .classList.remove("show");
+
+  document.getElementById("idError").textContent =
+    "✖ ID tidak valid. Masukkan ID game, bukan nama atau teks sembarang.";
+}
+
+function checkPlayerId() {
+  const value = playerInput.value.trim();
+
+  resetIdMessage();
+
+  if (!value) {
+    updateSummary();
+    return false;
+  }
+
+  const valid = validatePlayerId(value);
+
+  if (valid) {
+    playerInput.classList.add("valid");
+
+    document.getElementById("idValid")
+      .classList.add("show");
+  } else {
+    playerInput.classList.add("invalid");
+
+    document.getElementById("idError")
+      .classList.add("show");
+  }
+
+  updateSummary();
+  return valid;
+}
+
+function updateSummary() {
+  document.getElementById("summaryGame").textContent =
+    selectedGame ? selectedGame.name : "-";
+
+  document.getElementById("summaryId").textContent =
+    playerInput.value.trim() || "-";
+
+  document.getElementById("summaryPackage").textContent =
+    selectedPackage || "-";
+}
+
+playerInput.addEventListener("input", checkPlayerId);
+
+function buyNow() {
+  const playerId = playerInput.value.trim();
+
+  if (!playerId) {
+    playerInput.classList.add("invalid");
+    document.getElementById("idError").textContent =
+      "✖ ID game wajib diisi.";
+    document.getElementById("idError").classList.add("show");
+    playerInput.focus();
+    return;
+  }
+
+  if (!validatePlayerId(playerId)) {
+    checkPlayerId();
+    document.getElementById("idError").textContent =
+      "✖ Format ID salah. Masukkan ID game yang benar, bukan nama atau teks sembarang.";
+    playerInput.focus();
+    return;
+  }
+
+  if (!selectedPackage) {
+    alert("Silakan pilih nominal top up terlebih dahulu.");
+    return;
+  }
+
+  const now = new Date();
+
+  const date = now.toLocaleString("id-ID", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  });
+
+  document.getElementById("receiptGame").textContent =
+    selectedGame.name;
+
+  document.getElementById("receiptId").textContent =
+    playerId;
+
+  document.getElementById("receiptPackage").textContent =
+    selectedPackage;
+
+  document.getElementById("receiptDate").textContent =
+    date;
+
+  showPage(3);
+}
+
+function goHome() {
+  selectedGame = null;
+  selectedPackage = null;
+
+  playerInput.value = "";
+  resetIdMessage();
+
+  packageList.innerHTML = "";
+
+  showPage(1);
+}
+</script>
+
+</body>
+  </html>
+  
